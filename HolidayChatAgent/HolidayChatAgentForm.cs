@@ -70,7 +70,8 @@ namespace HolidayChatAgent
             }
             if (e.Action.Text == "Possible destinations") 
             {
-                
+                TableWithAvailablePlacesForm availablePlacesForm = new TableWithAvailablePlacesForm();
+                availablePlacesForm.Show();
             };
             
         }

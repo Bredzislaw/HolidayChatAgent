@@ -37,21 +37,21 @@
             this.mainRadChat.AvatarSize = new System.Drawing.SizeF(106.8115F, 106.8115F);
             this.mainRadChat.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainRadChat.Location = new System.Drawing.Point(0, 0);
-            this.mainRadChat.Margin = new System.Windows.Forms.Padding(12, 12, 12, 12);
+            this.mainRadChat.Margin = new System.Windows.Forms.Padding(12);
             this.mainRadChat.Name = "mainRadChat";
-            this.mainRadChat.Size = new System.Drawing.Size(518, 703);
+            this.mainRadChat.Size = new System.Drawing.Size(453, 527);
             this.mainRadChat.TabIndex = 0;
             this.mainRadChat.Text = "radChat1";
             this.mainRadChat.TimeSeparatorInterval = System.TimeSpan.Parse("1.00:00:00");
             this.mainRadChat.SendMessage += new Telerik.WinControls.UI.SendMessageEventHandler(this.mainRadChat_SendMessage);
-          //  this.mainRadChat.SuggestedActionClicked += new Telerik.WinControls.UI.SuggestedActionEventHandler(this.mainRadChat_SuggestedActionClicked);
             // 
             // HolidayChatAgentForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(518, 703);
+            this.ClientSize = new System.Drawing.Size(453, 527);
             this.Controls.Add(this.mainRadChat);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "HolidayChatAgentForm";

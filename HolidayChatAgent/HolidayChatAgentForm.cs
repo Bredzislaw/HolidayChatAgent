@@ -1,5 +1,8 @@
+using System.Data;
+using System.Globalization;
 using Telerik.WinControls;
 using Telerik.WinControls.UI;
+using Telerik.WinForms.Controls.Spreadsheet.Dialogs;
 
 namespace HolidayChatAgent
 {
@@ -11,7 +14,8 @@ namespace HolidayChatAgent
 
         //List of proposed actions 
         Dictionary<int,SuggestedActionDataItem> actions = new Dictionary<int,SuggestedActionDataItem>();
-        private int status = 0;
+        Dictionary<string, string> sendedMessage = new Dictionary<string, string>();
+        DataTable departureDate = new DataTable();
 
         public HolidayChatAgentForm()
         {
@@ -23,7 +27,7 @@ namespace HolidayChatAgent
             mainRadChat.ChatElement.Author = UserAuthor;
         }
 
-        //First things first 
+        //When form load
         private void HolidayChatAgentForm_Load(object sender, EventArgs e)
         {
             this.mainRadChat.AddMessage(sendMessage("Hello, welcome to the First Holiday Ltd.", BotAuthor, DateTime.Now));
@@ -41,7 +45,23 @@ namespace HolidayChatAgent
         private void mainRadChat_SendMessage(object sender, SendMessageEventArgs e)
         {
 
-            ChatTextMessage textMessage = (ChatTextMessage)e.Message;  
+            ChatTextMessage textMessage = (ChatTextMessage)e.Message;
+
+            //TODO: check the message comes from calendar
+            DateTime selectedDate = DateTime.Parse(((ChatTextMessage)e.Message).Message);
+            if (e.Message.Equals(selectedDate.DayOfWeek))
+            {
+                
+            }
+            //departureDate
+            //if () 
+            //{
+                
+            //}
+            
+            
+            //TODO: add selected date to datatable/collection + the destination
+
             //if(textMessage == ChatOverlay
         }
 
@@ -61,41 +81,44 @@ namespace HolidayChatAgent
             var suggestedAction = mainRadChat_SuggestedActionClicked;
         }
 
-        private async void mainRadChat_SuggestedActionClicked(object sender, SuggestedActionEventArgs e)
+        private void mainRadChat_SuggestedActionClicked(object sender, SuggestedActionEventArgs e)
         {
             mainRadChat.AddMessage(new ChatTextMessage("You have chosen " + e.Action.Text, BotAuthor, DateTime.Now));
             if (e.Action.Text == "Book a travel")
             {
+                this.mainRadChat.AddMessage(sendMessage("Select date of departure", BotAuthor, DateTime.Now));
+                DepartureDate();
 
-                
-                    this.mainRadChat.AddMessage(sendMessage("Select date of departure", BotAuthor, DateTime.Now));
-                    await DepartureDate();
-                    
+                TableWithAvailablePlacesForm availablePlacesForm = new TableWithAvailablePlacesForm();
+                availablePlacesForm.Show();
 
-                if (DepartureDate().IsCompleted)
-                {
-                    TableWithAvailablePlacesForm availablePlacesForm = new TableWithAvailablePlacesForm();
-                    availablePlacesForm.Show();
-                }
             }
+            
             if (e.Action.Text == "Possible destinations") 
             {
-                
+                PossibleDestinations possibleDestinations = new PossibleDestinations();
+                possibleDestinations.Show();
             };
             
         }
         //Calendar
-        public async Task DepartureDate() 
+        public void DepartureDate() 
         {
             ChatCalendarOverlay chatCalendarOverlay = new ChatCalendarOverlay("Set a date of your departure");
             //Disable previous days
             chatCalendarOverlay.Calendar.RangeMinDate = DateTime.Now.AddDays(1);
+            chatCalendarOverlay.Calendar.CalendarElement.Click += chatCalendarOverlay_Click();
             bool showAsPopup = false;
             ChatOverlayMessage overlayMessage = new ChatOverlayMessage(chatCalendarOverlay, showAsPopup, BotAuthor, DateTime.Now);
             mainRadChat.AddMessage(overlayMessage);
            
         }
 
-       
+        private EventHandler chatCalendarOverlay_Click()
+        {
+            
+            var a = 0;
+            return null;
+        }
     }
 }

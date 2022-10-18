@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HolidayChatAgent.Models
 {
-    internal class Countries
+    internal class HolidayData
     {
         public string HolidayReference { get; set; }
         public string HotelName { get; set; }

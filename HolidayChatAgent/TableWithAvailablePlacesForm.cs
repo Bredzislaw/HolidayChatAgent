@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HolidayChatAgent.Helpers;
 using Microsoft.VisualBasic.FileIO;
 using Telerik.WinControls.UI;
 
@@ -112,12 +111,10 @@ namespace HolidayChatAgent
             dataTable.Columns.Add(dc8);
             dataTable.Columns.Add(dc9);
             dataTable.Columns.Add(dc10);
-            //create 5 rows of irrelevant information
-            //this is the actual answer to your question
             for (int i = 0; i <= 10; i++)
             {
                 DataRow dataRow = dataTable.NewRow();//create a new row based on the existing "row model"
-                dataRow["ItemName"] = "Item" + "Name";
+                dataRow["I"] = "Item" + "Name";
                 dataRow["ItemValue"] = "Item" + i + "Value";
                 dataRow["Blah"] = "Item" + i + "Blah";
                 dataRow["Bleh"] = "Item" + i + "Bleh";

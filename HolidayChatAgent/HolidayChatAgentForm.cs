@@ -1,3 +1,4 @@
+using Telerik.WinControls;
 using Telerik.WinControls.UI;
 
 namespace HolidayChatAgent
@@ -10,7 +11,7 @@ namespace HolidayChatAgent
 
         //List of proposed actions 
         Dictionary<int,SuggestedActionDataItem> actions = new Dictionary<int,SuggestedActionDataItem>();
-        private static int questionNumber = 0;
+        private int status = 0;
 
         public HolidayChatAgentForm()
         {
@@ -40,7 +41,8 @@ namespace HolidayChatAgent
         private void mainRadChat_SendMessage(object sender, SendMessageEventArgs e)
         {
 
-            ChatTextMessage textMessage = (ChatTextMessage)e.Message;           
+            ChatTextMessage textMessage = (ChatTextMessage)e.Message;  
+            //if(textMessage == ChatOverlay
         }
 
         //Adding a carousel with suggested actions
@@ -64,19 +66,26 @@ namespace HolidayChatAgent
             mainRadChat.AddMessage(new ChatTextMessage("You have chosen " + e.Action.Text, BotAuthor, DateTime.Now));
             if (e.Action.Text == "Book a travel")
             {
-                this.mainRadChat.AddMessage(sendMessage("Select date of departure", BotAuthor, DateTime.Now));
-                DepartureDate();  
+
                 
+                    this.mainRadChat.AddMessage(sendMessage("Select date of departure", BotAuthor, DateTime.Now));
+                    await DepartureDate();
+                    
+
+                if (DepartureDate().IsCompleted)
+                {
+                    TableWithAvailablePlacesForm availablePlacesForm = new TableWithAvailablePlacesForm();
+                    availablePlacesForm.Show();
+                }
             }
             if (e.Action.Text == "Possible destinations") 
             {
-                TableWithAvailablePlacesForm availablePlacesForm = new TableWithAvailablePlacesForm();
-                availablePlacesForm.Show();
+                
             };
             
         }
         //Calendar
-        public void DepartureDate() 
+        public async Task DepartureDate() 
         {
             ChatCalendarOverlay chatCalendarOverlay = new ChatCalendarOverlay("Set a date of your departure");
             //Disable previous days

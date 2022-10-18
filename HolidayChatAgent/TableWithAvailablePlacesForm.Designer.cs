@@ -44,6 +44,9 @@
             // 
             // 
             this.holidayDestinationGrid.MasterTemplate.AllowAddNewRow = false;
+            this.holidayDestinationGrid.MasterTemplate.AllowColumnReorder = false;
+            this.holidayDestinationGrid.MasterTemplate.AllowDeleteRow = false;
+            this.holidayDestinationGrid.MasterTemplate.AllowEditRow = false;
             this.holidayDestinationGrid.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.holidayDestinationGrid.Name = "holidayDestinationGrid";
             this.holidayDestinationGrid.Size = new System.Drawing.Size(700, 338);

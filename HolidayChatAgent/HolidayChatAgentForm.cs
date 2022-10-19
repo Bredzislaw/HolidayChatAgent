@@ -87,7 +87,7 @@ namespace HolidayChatAgent
             userInput = textMessage.Message;
             if (questionNumber == 1)
             {                              
-                if (ifValidValueTyped(userInput))
+                if (ifValidValueTyped(userInput)) //ValidateCountry(userInput)
                 {
                     selectedValues.Add($"Country: {userInput}");
                 }
@@ -97,7 +97,7 @@ namespace HolidayChatAgent
                     return;
                 }
             }
-            else if (questionNumber == 2)
+            else if (questionNumber == 2) //ValidateCity(userInput)
             {
                 
                 if (ifValidValueTyped(userInput))
@@ -256,7 +256,7 @@ namespace HolidayChatAgent
         public static bool ifValidValueTyped(string type) 
         {
             bool validData = holidayInfors.Any(x => x.Country.Any() || x.Location.Any() || x.StarRating.Any() || x.City.Any());
-            if (!validData)
+            if (validData)
             {
                 return true;
             }

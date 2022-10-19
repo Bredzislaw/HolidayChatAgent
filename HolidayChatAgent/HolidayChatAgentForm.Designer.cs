@@ -64,6 +64,6 @@
 
         #endregion
 
-        private Telerik.WinControls.UI.RadChat mainRadChat;
+        public Telerik.WinControls.UI.RadChat mainRadChat;
     }
 }

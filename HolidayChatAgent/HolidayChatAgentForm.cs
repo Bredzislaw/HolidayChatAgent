@@ -1,9 +1,12 @@
+using System.Configuration;
 using Telerik.WinControls.UI;
 
 namespace HolidayChatAgent
 {
     public partial class HolidayChatAgentForm : Form
     {
+        private string directLineSecret = ConfigurationManager.AppSettings["TravelAgencyDirectLineSecret"];
+        private static string botId = ConfigurationManager.AppSettings["TravelAgencyBotId"];
         //setting the properties for Author in a conversation
         private Author UserAuthor { get; set; }
         private Author BotAuthor { get; set; }

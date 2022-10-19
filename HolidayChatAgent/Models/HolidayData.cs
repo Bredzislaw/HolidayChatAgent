@@ -14,10 +14,10 @@ namespace HolidayChatAgent.Models
         public string Continent { get; set; }
         public string Country { get; set; }
         public string Category { get; set; }
-        public string StarRating { get; set; }
+        public int StarRating { get; set; }
         public string TempRating { get; set; }
         public string Location { get; set; }
-        public string PricePerNight { get; set; }
+        public decimal PricePerNight { get; set; }
 
         //public static void Red(string message)
         //{

@@ -29,41 +29,57 @@
         private void InitializeComponent()
         {
             Telerik.WinControls.UI.TableViewDefinition tableViewDefinition1 = new Telerik.WinControls.UI.TableViewDefinition();
-            this.holidayDestinationGrid = new Telerik.WinControls.UI.RadGridView();
             this.radThemeManager1 = new Telerik.WinControls.RadThemeManager();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnConfirm = new System.Windows.Forms.Button();
+            this.holidayDestinationGrid = new Telerik.WinControls.UI.RadGridView();
             ((System.ComponentModel.ISupportInitialize)(this.holidayDestinationGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.holidayDestinationGrid.MasterTemplate)).BeginInit();
             this.SuspendLayout();
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(94, 340);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnConfirm
+            // 
+            this.btnConfirm.Location = new System.Drawing.Point(487, 340);
+            this.btnConfirm.Name = "btnConfirm";
+            this.btnConfirm.Size = new System.Drawing.Size(75, 23);
+            this.btnConfirm.TabIndex = 2;
+            this.btnConfirm.Text = "Confirm";
+            this.btnConfirm.UseVisualStyleBackColor = true;
+            this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
+            // 
             // holidayDestinationGrid
             // 
-            this.holidayDestinationGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.holidayDestinationGrid.Location = new System.Drawing.Point(0, 0);
-            this.holidayDestinationGrid.Margin = new System.Windows.Forms.Padding(4);
+            this.holidayDestinationGrid.Location = new System.Drawing.Point(12, 12);
             // 
             // 
             // 
-            this.holidayDestinationGrid.MasterTemplate.AllowAddNewRow = false;
-            this.holidayDestinationGrid.MasterTemplate.AllowColumnReorder = false;
-            this.holidayDestinationGrid.MasterTemplate.AllowDeleteRow = false;
-            this.holidayDestinationGrid.MasterTemplate.AllowEditRow = false;
             this.holidayDestinationGrid.MasterTemplate.ViewDefinition = tableViewDefinition1;
             this.holidayDestinationGrid.Name = "holidayDestinationGrid";
-            this.holidayDestinationGrid.Size = new System.Drawing.Size(700, 338);
-            this.holidayDestinationGrid.TabIndex = 0;
-            this.holidayDestinationGrid.CellClick += new Telerik.WinControls.UI.GridViewCellEventHandler(this.holidayDestinations_CellClick);
+            this.holidayDestinationGrid.Size = new System.Drawing.Size(707, 286);
+            this.holidayDestinationGrid.TabIndex = 3;
             // 
             // TableWithAvailablePlacesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.ClientSize = new System.Drawing.Size(731, 395);
             this.Controls.Add(this.holidayDestinationGrid);
+            this.Controls.Add(this.btnConfirm);
+            this.Controls.Add(this.btnCancel);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "TableWithAvailablePlacesForm";
             this.Text = "Holiday Destinations";
-            this.Load += new System.EventHandler(this.holidayDestinations_Load);
-            this.Click += new System.EventHandler(this.holidayDestinationsForm_Click);
+            this.Load += new System.EventHandler(this.TableWithAvailablePlacesForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.holidayDestinationGrid.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.holidayDestinationGrid)).EndInit();
             this.ResumeLayout(false);
@@ -71,8 +87,9 @@
         }
 
         #endregion
-
-        private Telerik.WinControls.UI.RadGridView holidayDestinationGrid;
         private Telerik.WinControls.RadThemeManager radThemeManager1;
+        private Button btnCancel;
+        private Button btnConfirm;
+        private Telerik.WinControls.UI.RadGridView holidayDestinationGrid;
     }
 }

@@ -17,19 +17,6 @@ namespace HolidayChatAgent.Models
         public int StarRating { get; set; }
         public string TempRating { get; set; }
         public string Location { get; set; }
-        public decimal PricePerNight { get; set; }
-
-        //public static void Red(string message)
-        //{
-        //    System.Windows.Forms.RichTextBox chatAgent = Application.OpenForms["HolidayChatAgentForm"].Controls["chatAgent"] as System.Windows.Forms.RichTextBox;
-
-        //    chatAgent.AppendText(Environment.NewLine);
-        //    chatAgent.SelectionStart = chatAgent.TextLength;
-        //    chatAgent.SelectionLength = message.Length;
-        //    chatAgent.SelectionColor = Color.Red;
-        //    chatAgent.AppendText(message);
-        //    chatAgent.SelectionColor = chatAgent.ForeColor;
-        //}
-
+        public decimal PricePerNight { get; set; }    
     }
 }

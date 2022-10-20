@@ -36,14 +36,14 @@ namespace HolidayChatAgent
             this.UserAuthor = new Author(Properties.Resources.DefaultUser, "Kamil");
 
             mainRadChat.ChatElement.Author = UserAuthor;
-
+            questionNumber = 0;
             AvailableDestinations = PopulateAvailableDestinations();
         }
 
         private List<HolidayData> PopulateAvailableDestinations()
         {
-            string destinationsFilePath = "C:/Users/kborkows/Desktop/New folder/HolidayChatAgent/HolidayChatAgent/Resources/HolidayAgentData.csv";
-            DataTable dtDestinations = csvToData.GetDataTableFromCSVFile(destinationsFilePath);
+            string destinationsFilePath = "C:/Users/kborkows/Desktop/New folder/HolidayChatAgent/HolidayChatAgent/Resources/HolidayAgentData.csv"; //todo> set as config
+            DataTable dtDestinations = CsvToDataTableConverter.GetDataTableFromCSVFile(destinationsFilePath);
             List<HolidayData> availableDestinations = new List<HolidayData>();
 
             foreach (DataRow row in dtDestinations.Rows)
@@ -69,7 +69,7 @@ namespace HolidayChatAgent
         }
 
         //When form load
-        private void HolidayChatAgentForm_Load(object sender, EventArgs e)
+        public void HolidayChatAgentForm_Load(object sender, EventArgs e)
         {
             welcomeMessage();
 
@@ -90,27 +90,12 @@ namespace HolidayChatAgent
             return textMessage;
         }
 
-
-
         private void mainRadChat_SendMessage(object sender, SendMessageEventArgs e)
         {
-
-            ChatTextMessage textMessage = (ChatTextMessage)e.Message;
-            // while()
-
-
-            answerQuestion(textMessage);
-            //DateTime? selectedDate = DateTime.Parse(((ChatTextMessage)e.Message).Message);           
-            //questionNumber++;
-
-            //.Clear();
-            //nextQuestion();
-
-
-            //TODO: add selected date to datatable/collection + the destination
-
-            //if(textMessage == ChatOverlay
+            ChatTextMessage textMessage = (ChatTextMessage)e.Message;         
+            answerQuestion(textMessage);         
         }
+
         public void answerQuestion(ChatTextMessage textMessage)
         {
             var userInput = "";
@@ -198,9 +183,14 @@ namespace HolidayChatAgent
                 }
 
                 UserAnswers.PricePerNight = Convert.ToDecimal(userInput);
+                this.mainRadChat.AddMessage(sendMessage("Searching for destinations available...", BotAuthor, DateTime.Now));
+
+                Thread.Sleep(3000);
+                ShowFilteredDestination();
             }
 
             askQuestion();
+            
         }
 
         private bool ValidateTypeCountry(string userInput)
@@ -214,7 +204,7 @@ namespace HolidayChatAgent
         private bool ValidateCountryIsAvailable(string userInput)
         {
             bool isCountryAvailable = false;
-            isCountryAvailable = AvailableDestinations.Where(dest => dest.Country == userInput).Count() > 0;
+            isCountryAvailable = AvailableDestinations.Where(dest => dest.Country.Equals(userInput, StringComparison.InvariantCultureIgnoreCase)).Count() > 0;
 
             return isCountryAvailable;
         }
@@ -284,7 +274,7 @@ namespace HolidayChatAgent
             questionNumber++;
             if (questionNumber == 1)
             {
-                mainRadChat.AddMessage(sendMessage("Agent: Enter a country you would like to visit?", BotAuthor, DateTime.Now));
+                mainRadChat.AddMessage(sendMessage("Enter a country you would like to visit?", BotAuthor, DateTime.Now));
             }
             else if (questionNumber == 2)
             {
@@ -304,28 +294,32 @@ namespace HolidayChatAgent
             }
 
         }
-        //public string stringConverter(string userInput) 
-        //{
-        //    var convertTyped = Convert.ToInt32(userInput);
-        //    var convertToString = convertTyped.ToString();
-        //    return convertToString;
-
-        //}
-
         //Adding a carousel with suggested actions
         public void AddSuggestedActions()
         {
 
-            actions.Add(1, new SuggestedActionDataItem("Book a travel"));
-            actions.Add(2, new SuggestedActionDataItem("Possible destinations"));
-            actions.Add(3, new SuggestedActionDataItem("Go to the Summary"));
+           // actions.Add(1, new SuggestedActionDataItem("Book a travel"));
+          //  actions.Add(2, new SuggestedActionDataItem("Possible destinations"));
+          //  actions.Add(3, new SuggestedActionDataItem("Go to the Summary"));
 
 
             ChatSuggestedActionsMessage suggestedActionsMessage = new ChatSuggestedActionsMessage(actions.Values, BotAuthor, DateTime.Now);
+          
             //Select the suggested actions
             mainRadChat.AddMessage(suggestedActionsMessage);
             mainRadChat.SuggestedActionClicked += mainRadChat_SuggestedActionClicked;
             var suggestedAction = mainRadChat_SuggestedActionClicked;
+        }
+
+        private void ShowFilteredDestination()
+        {
+            questionNumber = 0;
+            FilteredHolidayDestinationsForm availablePlacesForm = new FilteredHolidayDestinationsForm();
+            availablePlacesForm.AvailableDestinations.AddRange(AvailableDestinations);
+            availablePlacesForm.UserAnswers = UserAnswers;
+            availablePlacesForm.Show();
+            //mainRadChat.Dispose();
+            this.Hide();
         }
 
         private void mainRadChat_SuggestedActionClicked(object sender, SuggestedActionEventArgs e)
@@ -334,14 +328,12 @@ namespace HolidayChatAgent
             if (e.Action.Text == "Book a travel")
             {
                 this.mainRadChat.AddMessage(sendMessage("Select date of departure", BotAuthor, DateTime.Now));
-                DepartureDate();
+              //  DepartureDate();
 
-                TableWithAvailablePlacesForm availablePlacesForm = new TableWithAvailablePlacesForm();
-                availablePlacesForm.AvailableDestinations.AddRange(AvailableDestinations);
-                availablePlacesForm.UserAnswers = UserAnswers;
-                availablePlacesForm.Show();
+                
+
             }
-
+            
             if (e.Action.Text == "Possible destinations")
             {
                 PossibleDestinations possibleDestinations = new PossibleDestinations();
@@ -361,35 +353,9 @@ namespace HolidayChatAgent
             mainRadChat.AddMessage(overlayMessage);
 
         }
-
-        //private EventHandler chatCalendarOverlay_Click()
+        //public static bool ifValidValueTyped(string type)
         //{
-
-
-        //   ;
-
-        //    var a = 0;
-        //    return null;
-        //}
-
-
-        public static bool ifValidValueTyped(string type)
-        {
-            return false;
-        }
-
-        //public static bool validCountry(string country)
-        //{
-        //    foreach (var item in holidayInfors)
-        //    {
-
-        //        if (country.Equals(item.Country, StringComparison.OrdinalIgnoreCase))
-        //        {
-        //            return true;
-        //        }
-        //    }
         //    return false;
-        //}
-
+        //}    
     }
 }

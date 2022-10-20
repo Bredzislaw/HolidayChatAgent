@@ -22,13 +22,23 @@ namespace HolidayChatAgent
 
         private void ShowBookingDetails()
         {
-            lblReferenceValue.Text = UserSelection.Country;
-            lblHotelNameValue.Text = UserSelection.City;
+            lblReferenceValue.Text = UserSelection.HolidayReference;
+            lblHotelNameValue.Text = UserSelection.HotelName;
+            lblCityValue.Text = UserSelection.City;
+            lblContinentValue.Text = UserSelection.Continent;
+            lblCountryValue.Text = UserSelection.Country;
+            lblCategoryValue.Text = UserSelection.Category;
+            lblStarRatingValue.Text = UserSelection.StarRating.ToString();
+            lblTempRatingValue.Text = UserSelection.TempRating;
+            lblLocationValue.Text = UserSelection.Location;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-
+            HolidayChatAgentForm firstForm = new HolidayChatAgentForm();
+            
+           firstForm.Show();
+            this.Close();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -38,6 +48,7 @@ namespace HolidayChatAgent
 
         private void BookingPreview_Load(object sender, EventArgs e)
         {
+            
             ShowBookingDetails();
         }
     }

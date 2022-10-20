@@ -1,16 +1,10 @@
 ﻿using Microsoft.VisualBasic.FileIO;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Telerik.WinControls.UI;
-using TheArtOfDev.HtmlRenderer.Core;
 
 namespace HolidayChatAgent.Helpers
 {
-    public class csvToData
+    public class CsvToDataTableConverter
     {
         public static DataTable GetDataTableFromCSVFile(string csv_file_path, DataTable table, RadGridView gridView)
         {

@@ -13,7 +13,7 @@ namespace HolidayChatAgent
         private Author BotAuthor { get; set; }
 
         //List of proposed actions 
-        Dictionary<int, SuggestedActionDataItem> actions = new Dictionary<int, SuggestedActionDataItem>();
+        Dictionary<int,SuggestedActionDataItem> actions = new Dictionary<int, SuggestedActionDataItem>();
         Dictionary<string, string> sendedMessage = new Dictionary<string, string>();
         DataTable departureDate = new DataTable();
 
@@ -61,20 +61,15 @@ namespace HolidayChatAgent
                     Location = row[8].ToString(),
                     PricePerNight = Convert.ToDecimal(row[9].ToString()),
                 };
-
                 availableDestinations.Add(destination);
             }
-
             return availableDestinations;
         }
 
         //When form load
         public void HolidayChatAgentForm_Load(object sender, EventArgs e)
         {
-            welcomeMessage();
-
-            AddSuggestedActions();
-
+            welcomeMessage();          
         }
 
         private void welcomeMessage()
@@ -119,7 +114,6 @@ namespace HolidayChatAgent
             }
             else if (questionNumber == 2)
             {
-
                 if (!ValidateTypeCity(userInput))
                 {
                     mainRadChat.AddMessage(sendMessage($"{userInput} is not a valid city. Try again.", BotAuthor, DateTime.Now));
@@ -136,7 +130,6 @@ namespace HolidayChatAgent
             }
             else if (questionNumber == 3)
             {
-
                 if (!ValidateTypeRating(userInput))
                 {
                     mainRadChat.AddMessage(sendMessage($"{userInput} is not a valid rating. Try again.", BotAuthor, DateTime.Now));
@@ -153,7 +146,6 @@ namespace HolidayChatAgent
             }
             else if (questionNumber == 4)
             {
-
                 if (!ValidateTypeLocation(userInput))
                 {
                     mainRadChat.AddMessage(sendMessage($"{userInput} is not a valid location. Try again.", BotAuthor, DateTime.Now));
@@ -188,9 +180,7 @@ namespace HolidayChatAgent
                 Thread.Sleep(3000);
                 ShowFilteredDestination();
             }
-
-            askQuestion();
-            
+            askQuestion();          
         }
 
         private bool ValidateTypeCountry(string userInput)
@@ -200,7 +190,6 @@ namespace HolidayChatAgent
 
             return !isAnswerTypeValid;
         }
-
         private bool ValidateCountryIsAvailable(string userInput)
         {
             bool isCountryAvailable = false;
@@ -215,11 +204,10 @@ namespace HolidayChatAgent
 
             return !isAnswerTypeValid;
         }
-
         private bool ValidateCityIsAvailable(string userInput)
         {
             bool isCityAvailable = false;
-            isCityAvailable = AvailableDestinations.Where(dest => dest.City == userInput).Count() > 0;
+            isCityAvailable = AvailableDestinations.Where(dest => dest.City.Equals(userInput, StringComparison.InvariantCultureIgnoreCase)).Count() > 0;
 
             return isCityAvailable;
         }
@@ -237,7 +225,6 @@ namespace HolidayChatAgent
 
             return isRatingAvailable;
         }
-
         private bool ValidateTypeLocation(string userInput)
         {
             bool isAnswerTypeValid = false;
@@ -245,7 +232,6 @@ namespace HolidayChatAgent
 
             return !isAnswerTypeValid;
         }
-
         private bool ValidateLocationIsAvailable(string userInput)
         {
             bool isLocationAvailable = false;
@@ -260,7 +246,6 @@ namespace HolidayChatAgent
 
             return isAnswerTypeValid;
         }
-
         private bool ValidatePriceIsAvailable(string userInput)
         {
             bool isPriceAvailable = false;
@@ -292,23 +277,6 @@ namespace HolidayChatAgent
             {
                 mainRadChat.AddMessage(sendMessage("Enter an overall cost", BotAuthor, DateTime.Now));
             }
-
-        }
-        //Adding a carousel with suggested actions
-        public void AddSuggestedActions()
-        {
-
-           // actions.Add(1, new SuggestedActionDataItem("Book a travel"));
-          //  actions.Add(2, new SuggestedActionDataItem("Possible destinations"));
-          //  actions.Add(3, new SuggestedActionDataItem("Go to the Summary"));
-
-
-            ChatSuggestedActionsMessage suggestedActionsMessage = new ChatSuggestedActionsMessage(actions.Values, BotAuthor, DateTime.Now);
-          
-            //Select the suggested actions
-            mainRadChat.AddMessage(suggestedActionsMessage);
-            mainRadChat.SuggestedActionClicked += mainRadChat_SuggestedActionClicked;
-            var suggestedAction = mainRadChat_SuggestedActionClicked;
         }
 
         private void ShowFilteredDestination()
@@ -322,40 +290,15 @@ namespace HolidayChatAgent
             this.Hide();
         }
 
-        private void mainRadChat_SuggestedActionClicked(object sender, SuggestedActionEventArgs e)
-        {
-            mainRadChat.AddMessage(new ChatTextMessage("You have chosen " + e.Action.Text, BotAuthor, DateTime.Now));
-            if (e.Action.Text == "Book a travel")
-            {
-                this.mainRadChat.AddMessage(sendMessage("Select date of departure", BotAuthor, DateTime.Now));
-              //  DepartureDate();
-
-                
-
-            }
-            
-            if (e.Action.Text == "Possible destinations")
-            {
-                PossibleDestinations possibleDestinations = new PossibleDestinations();
-                possibleDestinations.Show();
-            };
-
-        }
         //Calendar
-        public void DepartureDate()
-        {
-            ChatCalendarOverlay chatCalendarOverlay = new ChatCalendarOverlay("Set a date of your departure");
-            //Disable previous days
-            chatCalendarOverlay.Calendar.RangeMinDate = DateTime.Now.AddDays(1);
-            //chatCalendarOverlay.Calendar.CalendarElement.Click += chatCalendarOverlay_Click();                      
-            bool showAsPopup = false;
-            ChatOverlayMessage overlayMessage = new ChatOverlayMessage(chatCalendarOverlay, showAsPopup, BotAuthor, DateTime.Now);
-            mainRadChat.AddMessage(overlayMessage);
-
-        }
-        //public static bool ifValidValueTyped(string type)
+        //public void DepartureDate()
         //{
-        //    return false;
-        //}    
+        //    ChatCalendarOverlay chatCalendarOverlay = new ChatCalendarOverlay("Set a date of your departure");
+        //    //Disable previous days
+        //    chatCalendarOverlay.Calendar.RangeMinDate = DateTime.Now.AddDays(1);                      
+        //    bool showAsPopup = false;
+        //    ChatOverlayMessage overlayMessage = new ChatOverlayMessage(chatCalendarOverlay, showAsPopup, BotAuthor, DateTime.Now);
+        //    mainRadChat.AddMessage(overlayMessage);
+        //}      
     }
 }

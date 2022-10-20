@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using HolidayChatAgent.Models;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using Microsoft.VisualBasic.FileIO;
 using Telerik.WinControls.UI;
-using HolidayChatAgent.Helpers;
-using HolidayChatAgent.Models;
-using Telerik.WinControls.VirtualKeyboard;
 
 namespace HolidayChatAgent
 {
@@ -25,7 +13,7 @@ namespace HolidayChatAgent
         public FilteredHolidayDestinationsForm()
         {
             InitializeComponent();
-            // holidayDestinationGrid.
+            
             holidayDestinationGrid.MultiSelect = true;
             holidayDestinationGrid.SelectionMode = GridViewSelectionMode.FullRowSelect;
         }
@@ -49,9 +37,7 @@ namespace HolidayChatAgent
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
-
             BookingPreview bookingPreview = new BookingPreview();
-            
             bookingPreview.UserSelection = UserSelection;
             bookingPreview.Show();
             this.Close();
@@ -60,14 +46,17 @@ namespace HolidayChatAgent
         private void TableWithAvailablePlacesForm_Load(object sender, EventArgs e)
         {
             FilterDestination();
+            if (holidayDestinationGrid.Rows.Count == 0)
+            {
+                btnConfirm.Enabled = false;
+            }
         }
-
         private void holidayDestinations_SelectionChanged(object sender, EventArgs e)
         {
             if (holidayDestinationGrid.CurrentRow is not null)
             {
                 UserSelection = (HolidayData)holidayDestinationGrid.CurrentRow.DataBoundItem;
-            }
+            }       
         }
     }
 }

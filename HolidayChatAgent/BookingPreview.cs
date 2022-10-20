@@ -1,13 +1,4 @@
 ﻿using HolidayChatAgent.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HolidayChatAgent
 {
@@ -36,19 +27,18 @@ namespace HolidayChatAgent
         private void btnCancel_Click(object sender, EventArgs e)
         {
             HolidayChatAgentForm firstForm = new HolidayChatAgentForm();
-            
-           firstForm.Show();
+            firstForm.Show();
             this.Close();
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
             MessageBox.Show("You booking has been confirmed.", "INFORMATION", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Environment.Exit(0);
         }
 
         private void BookingPreview_Load(object sender, EventArgs e)
         {
-            
             ShowBookingDetails();
         }
     }

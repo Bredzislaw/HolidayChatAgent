@@ -54,7 +54,7 @@
             // 
             // btnConfirm
             // 
-            this.btnConfirm.Location = new System.Drawing.Point(494, 401);
+            this.btnConfirm.Location = new System.Drawing.Point(551, 401);
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(209, 37);
             this.btnConfirm.TabIndex = 4;
@@ -64,7 +64,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(109, 401);
+            this.btnCancel.Location = new System.Drawing.Point(33, 401);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(218, 37);
             this.btnCancel.TabIndex = 3;

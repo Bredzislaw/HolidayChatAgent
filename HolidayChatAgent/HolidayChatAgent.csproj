@@ -9,11 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ExcelDataReader" Version="3.6.0" />
-    <PackageReference Include="ExcelDataReader.DataSet" Version="3.6.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
     <PackageReference Include="UI.for.WinForms.AllControls.Net60.Trial" Version="2022.3.921" />
-    <PackageReference Include="Z.Dapper.Plus" Version="4.0.34" />
   </ItemGroup>
 
   <ItemGroup>

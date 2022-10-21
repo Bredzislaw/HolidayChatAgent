@@ -193,7 +193,7 @@ namespace HolidayChatAgent
         private bool ValidateCountryIsAvailable(string userInput)
         {
             bool isCountryAvailable = false;
-            isCountryAvailable = AvailableDestinations.Where(dest => dest.Country.Equals(userInput, StringComparison.InvariantCultureIgnoreCase)).Count() > 0;
+            isCountryAvailable = AvailableDestinations.Where(dest => dest.Country == userInput).Count() > 0;
 
             return isCountryAvailable;
         }
@@ -207,7 +207,7 @@ namespace HolidayChatAgent
         private bool ValidateCityIsAvailable(string userInput)
         {
             bool isCityAvailable = false;
-            isCityAvailable = AvailableDestinations.Where(dest => dest.City.Equals(userInput, StringComparison.InvariantCultureIgnoreCase)).Count() > 0;
+            isCityAvailable = AvailableDestinations.Where(dest => dest.City == userInput).Count() > 0;
 
             return isCityAvailable;
         }
@@ -285,8 +285,7 @@ namespace HolidayChatAgent
             FilteredHolidayDestinationsForm availablePlacesForm = new FilteredHolidayDestinationsForm();
             availablePlacesForm.AvailableDestinations.AddRange(AvailableDestinations);
             availablePlacesForm.UserAnswers = UserAnswers;
-            availablePlacesForm.Show();
-            //mainRadChat.Dispose();
+            availablePlacesForm.Show();            
             this.Hide();
         }
 
